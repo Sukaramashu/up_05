@@ -1,22 +1,22 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
-require_login();
+require_once  '../../includes/header.php';
+// require_once '../../includes/auth.php';
+// require_login();
 
 if(!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header('Location: /templates/users/index.php');
+    header('Location:index.php');
     exit();
 }
 
 $page_title = "Просмотр пользователя";
-require_once __DIR__ . '/../../../models/User.php';
+require_once '../../models/User.php';
 
 $db = (new Database())->connect();
 $user = new User($db);
 $user->getById($_GET['id']);
 
 if(!$user->id) {
-    header('Location: /templates/users/index.php');
+    header('Location: index.php');
     exit();
 }
 
@@ -27,11 +27,11 @@ $equipment = $user->getAssignedEquipment();
 <div class="content-header">
     <h1 class="content-title">Просмотр пользователя</h1>
     <div>
-        <a href="/templates/users/index.php" class="btn btn-secondary">
+        <a href="index.php" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Назад
         </a>
         <?php if(get_current_user_role() === 'admin' || $_SESSION['user_id'] == $user->id): ?>
-        <a href="/templates/users/edit.php?id=<?= $user->id ?>" class="btn btn-primary ms-2">
+        <a href="/UP/templates/users/edit.php?id=<?= $user->id ?>" class="btn btn-primary ms-2">
             <i class="bi bi-pencil"></i> Редактировать
         </a>
         <?php endif; ?>
@@ -96,7 +96,7 @@ $equipment = $user->getAssignedEquipment();
                 <?php if($equipment->rowCount() > 0): ?>
                     <div class="list-group">
                         <?php while($row = $equipment->fetch(PDO::FETCH_ASSOC)): ?>
-                        <a href="/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
+                        <a href="/UP/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h6 class="mb-1"><?= htmlspecialchars($row['name']) ?></h6>
                                 <small><?= htmlspecialchars($row['inventory_number']) ?></small>
@@ -120,4 +120,4 @@ $equipment = $user->getAssignedEquipment();
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../../includes/footer.php'; ?>
+<?php require_once '../../includes/footer.php'; ?>

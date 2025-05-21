@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
-require_admin();
+require_once '../../includes/header.php';
+// require_once  '../../includes/auth.php';
+// require_admin();
 
 $page_title = "Пользователи";
-require_once __DIR__ . '/../../../models/User.php';
+require_once  '../../models/User.php';
 
 $db = (new Database())->connect();
 $user = new User($db);
@@ -24,7 +24,7 @@ $users = $user->getPaginated($current_page, $per_page, $search);
 <div class="content-header">
     <h1 class="content-title">Пользователи</h1>
     <div>
-        <a href="/templates/users/create.php" class="btn btn-primary">
+        <a href="create.php" class="btn btn-primary">
             <i class="bi bi-plus-lg"></i> Добавить
         </a>
     </div>
@@ -46,7 +46,7 @@ $users = $user->getPaginated($current_page, $per_page, $search);
                     </button>
                 </div>
                 <div class="col-md-2">
-                    <a href="/templates/users/index.php" class="btn btn-secondary w-100">
+                    <a href="index.php" class="btn btn-secondary w-100">
                         <i class="bi bi-arrow-counterclockwise"></i> Сброс
                     </a>
                 </div>
@@ -90,13 +90,13 @@ $users = $user->getPaginated($current_page, $per_page, $search);
                             <td><?= htmlspecialchars($row['email']) ?></td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="/templates/users/view.php?id=<?= $row['id'] ?>" class="btn btn-outline-primary">
+                                    <a href="view.php?id=<?= $row['id'] ?>" class="btn btn-outline-primary">
                                         <i class="bi bi-eye"></i>
                                     </a>
-                                    <a href="/templates/users/edit.php?id=<?= $row['id'] ?>" class="btn btn-outline-secondary">
+                                    <a href="edit.php?id=<?= $row['id'] ?>" class="btn btn-outline-secondary">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="/templates/users/delete.php?id=<?= $row['id'] ?>" class="btn btn-outline-danger" onclick="return confirm('Вы уверены?')">
+                                    <a href="delete.php?id=<?= $row['id'] ?>" class="btn btn-outline-danger" onclick="return confirm('Вы уверены?')">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                 </div>
@@ -143,4 +143,4 @@ $users = $user->getPaginated($current_page, $per_page, $search);
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../../includes/footer.php'; ?>
+<?php require_once '../../includes/footer.php'; ?>

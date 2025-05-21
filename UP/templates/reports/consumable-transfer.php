@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
-require_admin();
+require_once '../../includes/header.php';
+// require_once  '../../includes/auth.php';
+// require_admin();
 
 $page_title = "Акт приема-передачи расходных материалов";
-require_once __DIR__ . '/../../../models/Consumable.php';
-require_once __DIR__ . '/../../../models/User.php';
-require_once __DIR__ . '/../../../lib/fpdf/fpdf.php';
+require_once  '../../models/Consumable.php';
+require_once '../../models/User.php';
+require_once '../../lib/fpdf/fpdf.php';
 
 $db = (new Database())->connect();
 $consumable = new Consumable($db);
@@ -174,4 +174,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../../includes/footer.php'; ?>
+<?php require_once '../../includes/footer.php'; ?>

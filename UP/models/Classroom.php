@@ -42,22 +42,21 @@ class Classroom {
         return false;
     }
 
-    public function create() {
-        $query = "INSERT INTO {$this->table} 
-                  SET name = :name,
-                      short_name = :short_name,
-                      responsible_user_id = :responsible_user_id,
-                      temp_responsible_user_id = :temp_responsible_user_id";
-
-        $stmt = $this->conn->prepare($query);
-        
-        $stmt->bindParam(':name', $this->name);
-        $stmt->bindParam(':short_name', $this->short_name);
-        $stmt->bindParam(':responsible_user_id', $this->responsible_user_id);
-        $stmt->bindParam(':temp_responsible_user_id', $this->temp_responsible_user_id);
-
-        return $stmt->execute();
-    }
+  public function create() {
+    $query = "INSERT INTO classrooms 
+              (name, short_name, responsible_user_id, temp_responsible_user_id, created_at, updated_at) 
+              VALUES 
+              (:name, :short_name, :responsible_user_id, :temp_responsible_user_id, NOW(), NOW())";
+    
+    $stmt = $this->conn->prepare($query);
+    
+    return $stmt->execute([
+        ':name' => $this->name,
+        ':short_name' => $this->short_name,
+        ':responsible_user_id' => $this->responsible_user_id,
+        ':temp_responsible_user_id' => $this->temp_responsible_user_id
+    ]);
+}
 
     public function update() {
         $query = "UPDATE {$this->table} 
@@ -78,12 +77,11 @@ class Classroom {
         return $stmt->execute();
     }
 
-    public function delete() {
-        $query = "DELETE FROM {$this->table} WHERE id = :id";
-        $stmt = $this->conn->prepare($query);
-        $stmt->bindParam(':id', $this->id);
-        return $stmt->execute();
-    }
+   public function delete($id) {
+    $query = "DELETE FROM classrooms WHERE id = ?";
+    $stmt = $this->conn->prepare($query);
+    return $stmt->execute([$id]);
+}
 
     public function count() {
         $query = "SELECT COUNT(*) as count FROM {$this->table}";
@@ -117,6 +115,21 @@ class Classroom {
         $stmt->execute([$classroom_id]);
         return $stmt;
     }
+    public function countByResponsibleUser($user_id) {
+    $query = "SELECT COUNT(*) FROM classrooms WHERE responsible_user_id = :user_id OR temp_responsible_user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute([':user_id' => $user_id]);
+    return $stmt->fetchColumn();
+}
+
+public function clearResponsibleUser($user_id) {
+    $query = "UPDATE classrooms SET 
+              responsible_user_id = NULL, 
+              temp_responsible_user_id = NULL 
+              WHERE responsible_user_id = :user_id OR temp_responsible_user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    return $stmt->execute([':user_id' => $user_id]);
+}
 }
 
 ?>

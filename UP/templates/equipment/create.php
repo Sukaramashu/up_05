@@ -1,12 +1,12 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
-require_admin();
+require_once '../../includes/header.php';
+// require_once '../../includes/auth.php';
+// require_admin();
 
 $page_title = "Добавить аудиторию";
 
-require_once __DIR__ . '/../../../models/Classroom.php';
-require_once __DIR__ . '/../../../models/User.php';
+require_once '../../models/Classroom.php';
+require_once '../../models/User.php';
 
 $db = (new Database())->connect();
 $classroom = new Classroom($db);

@@ -1,13 +1,13 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/auth.php';
-require_login();
+require_once 'includes/header.php';
+// require_once 'includes/auth.php';
+// require_login();
 
 $page_title = "Главная панель";
-require_once __DIR__ . '/models/Equipment.php';
-require_once __DIR__ . '/models/Classroom.php';
-require_once __DIR__ . '/models/User.php';
-require_once __DIR__ . '/models/Inventory.php';
+require_once 'models/Equipment.php';
+require_once 'models/Classroom.php';
+require_once 'models/User.php';
+require_once 'models/Inventory.php';
 
 $db = (new Database())->connect();
 $equipment_count = (new Equipment($db))->count();
@@ -28,7 +28,7 @@ $user_count = (new User($db))->count();
             <div class="card-body text-center">
                 <h2 class="mb-0"><?= $equipment_count ?></h2>
                 <p class="text-muted">единиц оборудования</p>
-                <a href="/templates/equipment/index.php" class="btn btn-primary btn-sm">
+                <a href="/UP/templates/equipment/index.php" class="btn btn-primary btn-sm">
                     Просмотреть <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
@@ -43,7 +43,7 @@ $user_count = (new User($db))->count();
             <div class="card-body text-center">
                 <h2 class="mb-0"><?= $classroom_count ?></h2>
                 <p class="text-muted">аудиторий</p>
-                <a href="/templates/classrooms/index.php" class="btn btn-primary btn-sm">
+                <a href="/UP/templates/classrooms/index.php" class="btn btn-primary btn-sm">
                     Просмотреть <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
@@ -58,7 +58,7 @@ $user_count = (new User($db))->count();
             <div class="card-body text-center">
                 <h2 class="mb-0"><?= $user_count ?></h2>
                 <p class="text-muted">пользователей</p>
-                <a href="/templates/users/index.php" class="btn btn-primary btn-sm">
+                <a href="/UP/templates/users/index.php" class="btn btn-primary btn-sm">
                     Просмотреть <i class="bi bi-arrow-right"></i>
                 </a>
             </div>
@@ -80,7 +80,7 @@ $user_count = (new User($db))->count();
                 ?>
                     <div class="list-group">
                         <?php while($row = $inventory->fetch(PDO::FETCH_ASSOC)): ?>
-                        <a href="/templates/inventory/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
+                        <a href="/UP/templates/inventory/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h6 class="mb-1"><?= htmlspecialchars($row['name']) ?></h6>
                                 <small><?= date('d.m.Y', strtotime($row['start_date'])) ?></small>
@@ -118,7 +118,7 @@ $user_count = (new User($db))->count();
                 ?>
                     <div class="list-group">
                         <?php while($row = $equipment->fetch(PDO::FETCH_ASSOC)): ?>
-                        <a href="/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
+                        <a href="/UP/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h6 class="mb-1"><?= htmlspecialchars($row['name']) ?></h6>
                                 <small><?= htmlspecialchars($row['inventory_number']) ?></small>
@@ -136,4 +136,4 @@ $user_count = (new User($db))->count();
 </div>
 <?php endif; ?>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once  'includes/footer.php'; ?>

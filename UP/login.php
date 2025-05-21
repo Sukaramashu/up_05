@@ -1,13 +1,12 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
-
+require_once 'includes/header.php';
 $page_title = "Вход в систему";
-require_once __DIR__ . '/config/database.php';
-require_once __DIR__ . '/models/User.php';
+require_once 'config/database.php';
+require_once  'models/User.php';
 
 // Если пользователь уже авторизован, перенаправляем на главную
 if (isset($_SESSION['user_id'])) {
-    header('Location: /index.php');
+    header('Location: /UP/index.php');
     exit();
 }
 
@@ -15,7 +14,6 @@ $db = (new Database())->connect();
 $user = new User($db);
 
 $error = null;
-
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $username = trim($_POST['username'] ?? '');
     $password = trim($_POST['password'] ?? '');
@@ -100,5 +98,5 @@ document.querySelector('.toggle-password').addEventListener('click', function() 
 </script>
 
 <?php 
-require_once __DIR__ . 'includes/footer.php';
+require_once 'includes/footer.php';
 ?>

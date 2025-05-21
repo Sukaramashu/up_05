@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
-require_login();
+require_once  '../../includes/header.php';
+// require_once '../../includes/auth.php';
+// require_login();
 
 if(!isset($_GET['id']) || !is_numeric($_GET['id'])) {
     header('Location: /templates/equipment/index.php');
@@ -9,7 +9,7 @@ if(!isset($_GET['id']) || !is_numeric($_GET['id'])) {
 }
 
 $page_title = "Просмотр оборудования";
-require_once __DIR__ . '/../../../models/Equipment.php';
+require_once  '../../models/Equipment.php';
 
 $db = (new Database())->connect();
 $equipment = new Equipment($db);
@@ -201,4 +201,4 @@ if(!$equipment->id) {
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../../includes/footer.php'; ?>
+<?php require_once '../../includes/footer.php'; ?>

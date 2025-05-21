@@ -258,5 +258,20 @@ class Equipment {
     $stmt->execute();
     return $stmt;
 }
+public function countByResponsibleUser($user_id) {
+    $query = "SELECT COUNT(*) FROM equipment WHERE responsible_user_id = :user_id OR temp_responsible_user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    $stmt->execute([':user_id' => $user_id]);
+    return $stmt->fetchColumn();
+}
+
+public function clearResponsibleUser($user_id) {
+    $query = "UPDATE equipment SET 
+              responsible_user_id = NULL, 
+              temp_responsible_user_id = NULL 
+              WHERE responsible_user_id = :user_id OR temp_responsible_user_id = :user_id";
+    $stmt = $this->conn->prepare($query);
+    return $stmt->execute([':user_id' => $user_id]);
+}
 }
 ?>

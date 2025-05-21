@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
-require_login();
+require_once '../../includes/header.php';
+// require_once '../../includes/auth.php';
+// require_login();
 
 $page_title = "Аудитории";
-require_once __DIR__ . '/../../../models/Classroom.php';
+require_once '../../models/Classroom.php';
 
 $db = (new Database())->connect();
 $classroom = new Classroom($db);
@@ -15,7 +15,7 @@ $classrooms = $classroom->getWithEquipmentCount();
     <h1 class="content-title">Аудитории</h1>
     <div>
         <?php if(get_current_user_role() === 'admin'): ?>
-        <a href="/templates/classrooms/create.php" class="btn btn-primary">
+        <a href="create.php" class="btn btn-primary">
             <i class="bi bi-plus-lg"></i> Добавить
         </a>
         <?php endif; ?>
@@ -55,14 +55,14 @@ $classrooms = $classroom->getWithEquipmentCount();
                             </td>
                             <td>
                                 <div class="btn-group btn-group-sm" role="group">
-                                    <a href="/templates/classrooms/view.php?id=<?= $row['id'] ?>" class="btn btn-outline-primary">
+                                    <a href="/UP/templates/classrooms/view.php?id=<?= $row['id'] ?>" class="btn btn-outline-primary">
                                         <i class="bi bi-eye"></i>
                                     </a>
                                     <?php if(get_current_user_role() === 'admin'): ?>
-                                    <a href="/templates/classrooms/edit.php?id=<?= $row['id'] ?>" class="btn btn-outline-secondary">
+                                    <a href="/UP/templates/classrooms/edit.php?id=<?= $row['id'] ?>" class="btn btn-outline-secondary">
                                         <i class="bi bi-pencil"></i>
                                     </a>
-                                    <a href="/templates/classrooms/delete.php?id=<?= $row['id'] ?>" class="btn btn-outline-danger" onclick="return confirm('Вы уверены?')">
+                                    <a href="/UP/templates/classrooms/delete.php?id=<?= $row['id'] ?>" class="btn btn-outline-danger" onclick="return confirm('Вы уверены?')">
                                         <i class="bi bi-trash"></i>
                                     </a>
                                     <?php endif; ?>
@@ -81,4 +81,4 @@ $classrooms = $classroom->getWithEquipmentCount();
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../../includes/footer.php'; ?>
+<?php require_once '../../includes/footer.php'; ?>

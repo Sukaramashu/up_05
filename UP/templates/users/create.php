@@ -1,10 +1,10 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
-require_admin();
+require_once  '../../includes/header.php';
+// require_once  '../../includes/auth.php';
+// require_admin();
 
 $page_title = "Добавить пользователя";
-require_once __DIR__ . '/../../../models/User.php';
+require_once '../../models/User.php';
 
 $db = (new Database())->connect();
 $user = new User($db);
@@ -42,7 +42,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
 <div class="content-header">
     <h1 class="content-title">Добавить пользователя</h1>
-    <a href="/templates/users/index.php" class="btn btn-secondary">
+    <a href="index.php" class="btn btn-secondary">
         <i class="bi bi-arrow-left"></i> Назад
     </a>
 </div>
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 <button type="submit" class="btn btn-primary">
                     <i class="bi bi-save"></i> Сохранить
                 </button>
-                <a href="/templates/users/index.php" class="btn btn-secondary">
+                <a href="/UP/templates/users/index.php" class="btn btn-secondary">
                     <i class="bi bi-x-lg"></i> Отмена
                 </a>
             </div>
@@ -148,4 +148,4 @@ document.querySelector('.toggle-password').addEventListener('click', function() 
 });
 </script>
 
-<?php require_once __DIR__ . '/../../../includes/footer.php'; ?>
+<?php require_once '../../includes/footer.php'; ?>

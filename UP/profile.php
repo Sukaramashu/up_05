@@ -1,15 +1,15 @@
 <?php
-require_once __DIR__ . '/includes/header.php';
-require_once __DIR__ . '/includes/auth.php';
-require_login();
+require_once  'includes/header.php';
+// require_once  'includes/auth.php';
+// require_login();
 
 $page_title = "Профиль пользователя";
-require_once __DIR__ . '/models/User.php';
-require_once __DIR__ . '/models/Equipment.php';
+require_once  'models/User.php';
+require_once 'models/Equipment.php';
 
 $db = (new Database())->connect();
 $user = new User($db);
-$user->getById($_SESSION['user_id']);
+// $user->getById($_SESSION['user_id']);
 
 $success = null;
 $error = null;
@@ -161,7 +161,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                 ?>
                     <div class="list-group">
                         <?php while($row = $assigned_equipment->fetch(PDO::FETCH_ASSOC)): ?>
-                        <a href="/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
+                        <a href="/UP/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h6 class="mb-1"><?= htmlspecialchars($row['name']) ?></h6>
                                 <small><?= htmlspecialchars($row['inventory_number']) ?></small>
@@ -185,4 +185,4 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     </div>
 </div>
 
-<?php require_once __DIR__ . '/includes/footer.php'; ?>
+<?php require_once 'includes/footer.php'; ?>

@@ -1,23 +1,23 @@
 <?php
-require_once __DIR__ . '/../../../includes/header.php';
-require_once __DIR__ . '/../../../includes/auth.php';
+require_once  '../../includes/header.php';
+// require_once '../../includes/auth.php';
 require_login();
 
 if(!isset($_GET['id']) || !is_numeric($_GET['id'])) {
-    header('Location: /templates/classrooms/index.php');
+    header('Location: /UP/templates/classrooms/index.php');
     exit();
 }
 
 $page_title = "Просмотр аудитории";
-require_once __DIR__ . '/../../../models/Classroom.php';
-require_once __DIR__ . '/../../../models/User.php';
+require_once  '../../models/Classroom.php';
+require_once '../../models/User.php';
 
 $db = (new Database())->connect();
 $classroom = new Classroom($db);
 $classroom->getById($_GET['id']);
 
 if(!$classroom->id) {
-    header('Location: /templates/classrooms/index.php');
+    header('Location: /UP/templates/classrooms/index.php');
     exit();
 }
 
@@ -36,15 +36,15 @@ $equipment = $classroom->getEquipment($classroom->id);
 <div class="content-header">
     <h1 class="content-title">Просмотр аудитории</h1>
     <div>
-        <a href="/templates/classrooms/index.php" class="btn btn-secondary">
+            <a href="/UP/templates/classrooms/index.php" class="btn btn-secondary">
             <i class="bi bi-arrow-left"></i> Назад
         </a>
         <?php if(get_current_user_role() === 'admin'): ?>
-        <a href="/templates/classrooms/edit.php?id=<?= $classroom->id ?>" class="btn btn-primary ms-2">
+        <a href="/UP/templates/classrooms/edit.php?id=<?= $classroom->id ?>" class="btn btn-primary ms-2">
             <i class="bi bi-pencil"></i> Редактировать
         </a>
         <?php endif; ?>
-    </div>
+        </div>
 </div>
 
 <div class="row">
@@ -66,10 +66,10 @@ $equipment = $classroom->getEquipment($classroom->id);
                     <div class="col-md-4 fw-bold">Ответственный:</div>
                     <div class="col-md-8">
                         <?php if($responsible_user): ?>
-                            <a href="/templates/users/view.php?id=<?= $responsible_user->id ?>">
-                                <?= htmlspecialchars($responsible_user->last_name) ?> 
-                                <?= htmlspecialchars($responsible_user->first_name) ?>
-                            </a>
+                           <a href="/UP/templates/users/view.php?id=<?= $responsible_user->id ?>">
+                            <?= htmlspecialchars($responsible_user->last_name) ?> 
+                            <?= htmlspecialchars($responsible_user->first_name) ?>
+                        </a>
                         <?php else: ?>
                             Не назначен
                         <?php endif; ?>
@@ -88,7 +88,7 @@ $equipment = $classroom->getEquipment($classroom->id);
                 <?php if($equipment->rowCount() > 0): ?>
                     <div class="list-group">
                         <?php while($row = $equipment->fetch(PDO::FETCH_ASSOC)): ?>
-                        <a href="/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
+                        <a href="/UP/templates/equipment/view.php?id=<?= $row['id'] ?>" class="list-group-item list-group-item-action">
                             <div class="d-flex w-100 justify-content-between">
                                 <h6 class="mb-1"><?= htmlspecialchars($row['name']) ?></h6>
                                 <small><?= htmlspecialchars($row['inventory_number']) ?></small>
@@ -112,4 +112,4 @@ $equipment = $classroom->getEquipment($classroom->id);
     </div>
 </div>
 
-<?php require_once __DIR__ . '/../../../includes/footer.php'; ?>
+<?php require_once '../../includes/footer.php'; ?>
